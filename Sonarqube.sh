@@ -87,22 +87,18 @@ echo "Opening port 9000, tick tock, tick tock..."
 echo
 sleep 1
 sudo firewall-cmd --permanent --add-port=9000/tcp
-sudo firewall-cmd --reload 
-echo
+sudo firewall-cmd --reload
+if [ $? = 252 ]
+
+then 
+echo -e "\nNothing ever works, does it? Let's start your firewall service\n"
 sleep 1
-#if [ $? = 252 ]
-#then
-#echo 
-#echo "Nothing ever works, does it? Let's start your firewall service"
-#sleep 1
-#echo
-#systemctl start firewalld
-#echo 
-#sleep 1
-#else
-#echo
-echo "Great, Port 9000 added and functioning successfully"
-#fi
+echo
+sudo systemctl start firewalld
+echo
+sudo firewall-cmd --reload
+sleep 1
+fi
 echo "Use this link to connect to the Sonarqube server"
 sleep 1
 echo
